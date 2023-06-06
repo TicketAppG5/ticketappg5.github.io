@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redireccionar a Ticket App</title>
+</head>
+<body>
+<script>
+  function redireccionar() {
+    // Verificar si la aplicación Ticket App está instalada
+    if (navigator.userAgent.match(/Android/i) && 
+window.location.href.indexOf("intent") === -1) {
+      window.location.href = "ticketapp://EventDetail";
+    } else {
+      // Redirigir a la Google Play Store
+      window.location.href = 
+"https://play.google.com/store/apps/details?id=com.ticketapp";
+    }
+  }
+  // Llamar a la función de redireccionamiento cuando se cargue la página
+  window.onload = redireccionar;
+</script>
+</body>
+</html>
+
