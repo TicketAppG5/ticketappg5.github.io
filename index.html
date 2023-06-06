@@ -32,9 +32,11 @@
     // Verificar si la aplicación Ticket App está instalada
     if (navigator.userAgent.match(/Android/i) && window.location.href.indexOf("intent") === -1) {
       if (eventId) {
-        window.location.href = `ticketapp://EventDetail?eventId=${eventId}`;
+        window.location.replace(`ticketapp://EventDetail?eventId=${eventId}`);
+        // window.location.href = `ticketapp://EventDetail?eventId=${eventId}`;
       } else {
-        window.location.href = "ticketapp://Home";
+        window.location.replace("ticketapp://Home");
+        // window.location.href = "ticketapp://Home";
       }
     } else {
       // Redirigir a la Google Play Store
