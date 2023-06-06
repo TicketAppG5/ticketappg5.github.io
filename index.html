@@ -5,15 +5,27 @@
 </head>
 <body>
 <script>
+  function obtenerParametroConsulta(nombre) {
+    nombre = nombre.replace(/[\[\]]/g, "\\$&");
+    let regex = new RegExp("[?&]" + nombre + "(=([^&#]*)|&|#|$)"),
+        resultados = regex.exec(window.location.href);
+    if (!resultados) return null;
+    if (!resultados[2]) return '';
+    return decodeURIComponent(resultados[2].replace(/\+/g, " "));
+  }
+
   function redireccionar() {
+    let eventId = obtenerParametroConsulta('eventId');
     // Verificar si la aplicación Ticket App está instalada
-    if (navigator.userAgent.match(/Android/i) && 
-window.location.href.indexOf("intent") === -1) {
-      window.location.href = "ticketapp://EventDetail";
+    if (navigator.userAgent.match(/Android/i) && window.location.href.indexOf("intent") === -1) {
+      if (eventId) {
+        window.location.href = `ticketapp://EventDetail?eventId=${eventId}`;
+      } else {
+        window.location.href = "ticketapp://Home";
+      }
     } else {
       // Redirigir a la Google Play Store
-      window.location.href = 
-"https://play.google.com/store/apps/details?id=com.ticketapp";
+      window.location.href = "https://play.google.com/store/apps/details?id=com.ticketapp";
     }
   }
   // Llamar a la función de redireccionamiento cuando se cargue la página
@@ -21,4 +33,3 @@ window.location.href.indexOf("intent") === -1) {
 </script>
 </body>
 </html>
-
