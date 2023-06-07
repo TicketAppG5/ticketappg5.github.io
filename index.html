@@ -4,18 +4,18 @@
   <title>Redireccionar a Ticket App</title>
 
   <!-- Meta tags para compartir en Twitter -->
-  <!-- <meta property="og:title">
-  <meta property="og:description">
-  <meta property="og:image" itemprop="image"> -->
-  <!-- <meta name="twitter:card" content="summary_large_image"> -->
+  <meta property="og:title" content="TicketApp">
+  <meta property="og:description" content="Encontra tu evento favorito en TicketApp">
+  <meta property="og:image" itemprop="image" content="https://github.com/TicketAppG5/ticketappg5.github.io/blob/main/ticketapp-logo.png?raw=true">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Meta tags para compartir en WhatsApp -->
-  <!-- <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Ticketapp"> -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ticketapp">
   <!-- <meta property="og:url" content="ticketapp://Home"> -->
-  <!-- <meta property="og:image:width" content="600">
+  <meta property="og:image:width" content="600">
   <meta property="og:image:height" content="315">
-  <meta property="og:updated_time" content="1440432930" /> -->
+  <meta property="og:updated_time" content="1440432930" />
 </head>
 <body>
 <script>
@@ -28,58 +28,58 @@
     return decodeURIComponent(resultados[2].replace(/\+/g, " "));
   }
 
-  let eventId = obtenerParametroConsulta('eventId');
+  // let eventId = obtenerParametroConsulta('eventId');
 
-  fetch(`https://tickectapp-web-service.onrender.com/api/events/${eventId}`)
-    .then(response => response.json())
-    .then(data => {
-      const title = data.name;
-      const description = data.description;
-      const image = data.photos.length
-        ? data.photos[0].url
-        : "https://img.freepik.com/vector-premium/ilustracion-vector-grafico-personaje-dibujos-animados-agenda-calendario-eventos-calendario_516790-1280.jpg?w=1380";
+  // fetch(`https://tickectapp-web-service.onrender.com/api/events/${eventId}`)
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     const title = data.name;
+  //     const description = data.description;
+  //     const image = data.photos.length
+  //       ? data.photos[0].url
+  //       : "https://img.freepik.com/vector-premium/ilustracion-vector-grafico-personaje-dibujos-animados-agenda-calendario-eventos-calendario_516790-1280.jpg?w=1380";
     
-      // Establecer los valores en los meta tags
-      // document.querySelector('meta[property="og:title"]').setAttribute("content", title);
-      // document.querySelector('meta[property="og:description"]').setAttribute("content", description);
-      // document.querySelector('meta[property="og:image"]').setAttribute("content", image);
+  //     // Establecer los valores en los meta tags
+  //     // document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+  //     // document.querySelector('meta[property="og:description"]').setAttribute("content", description);
+  //     // document.querySelector('meta[property="og:image"]').setAttribute("content", image);
 
-      const ogTitle = document.createElement('meta');
-      ogTitle.setAttribute('property', 'og:title');
-      ogTitle.content = title
-      document.getElementsByTagName('head')[0].appendChild(ogTitle);
+  //     const ogTitle = document.createElement('meta');
+  //     ogTitle.setAttribute('property', 'og:title');
+  //     ogTitle.content = title
+  //     document.getElementsByTagName('head')[0].appendChild(ogTitle);
 
-      const ogDescription = document.createElement('meta');
-      ogDescription.setAttribute('property', 'og:description');
-      ogDescription.content = description
-      document.getElementsByTagName('head')[0].appendChild(ogDescription);
+  //     const ogDescription = document.createElement('meta');
+  //     ogDescription.setAttribute('property', 'og:description');
+  //     ogDescription.content = description
+  //     document.getElementsByTagName('head')[0].appendChild(ogDescription);
 
-      const ogImage = document.createElement('meta');
-      ogImage.setAttribute('property', 'og:image');
-      ogImage.content = image
-      ogImage.itemprop = "image"
-      document.getElementsByTagName('head')[0].appendChild(ogImage);
+  //     const ogImage = document.createElement('meta');
+  //     ogImage.setAttribute('property', 'og:image');
+  //     ogImage.content = image
+  //     ogImage.itemprop = "image"
+  //     document.getElementsByTagName('head')[0].appendChild(ogImage);
 
-      const ogTwitterCard = document.createElement('meta');
-      ogTwitterCard.setAttribute('property', 'twitter:card');
-      ogTwitterCard.content = "summary_large_image"
-      document.getElementsByTagName('head')[0].appendChild(ogTwitterCard);
+  //     const ogTwitterCard = document.createElement('meta');
+  //     ogTwitterCard.setAttribute('property', 'twitter:card');
+  //     ogTwitterCard.content = "summary_large_image"
+  //     document.getElementsByTagName('head')[0].appendChild(ogTwitterCard);
 
-      const ogType = document.createElement('meta');
-      ogType.setAttribute('property', 'og:type');
-      ogType.content = "website"
-      document.getElementsByTagName('head')[0].appendChild(ogType);
+  //     const ogType = document.createElement('meta');
+  //     ogType.setAttribute('property', 'og:type');
+  //     ogType.content = "website"
+  //     document.getElementsByTagName('head')[0].appendChild(ogType);
 
-      const ogImageWitdh = document.createElement('meta');
-      ogImageWitdh.setAttribute('property', 'og:image:witdh');
-      ogImageWitdh.content = "600"
-      document.getElementsByTagName('head')[0].appendChild(ogImageWitdh);
+  //     const ogImageWitdh = document.createElement('meta');
+  //     ogImageWitdh.setAttribute('property', 'og:image:witdh');
+  //     ogImageWitdh.content = "600"
+  //     document.getElementsByTagName('head')[0].appendChild(ogImageWitdh);
 
-      const ogImageHeight = document.createElement('meta');
-      ogImageHeight.setAttribute('property', 'og:image:height');
-      ogImageHeight.content = "315"
-      document.getElementsByTagName('head')[0].appendChild(ogImageHeight);
-    })
+  //     const ogImageHeight = document.createElement('meta');
+  //     ogImageHeight.setAttribute('property', 'og:image:height');
+  //     ogImageHeight.content = "315"
+  //     document.getElementsByTagName('head')[0].appendChild(ogImageHeight);
+  //   })
 
   function redireccionar() {
     let eventId = obtenerParametroConsulta('eventId');
