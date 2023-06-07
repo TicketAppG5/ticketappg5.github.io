@@ -4,21 +4,42 @@
   <title>Redireccionar a Ticket App</title>
 
   <!-- Meta tags para compartir en Twitter -->
-  <meta property="og:title" content="Título del evento">
-  <meta property="og:description" content="Descripción del evento">
-  <meta property="og:image" itemprop="image" content="https://blog.dushow-spain.com/hubfs/header_como_organizar_un_evento.jpg">
+  <meta property="og:title" content="Ticketapp">
+  <meta property="og:description" content="Ticketapp">
+  <meta property="og:image" itemprop="image" content="https://img.freepik.com/vector-premium/ilustracion-vector-grafico-personaje-dibujos-animados-agenda-calendario-eventos-calendario_516790-1280.jpg?w=1380">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Meta tags para compartir en WhatsApp -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Nombre del sitio">
-  <meta property="og:url" content="https://blog.dushow-spain.com/hubfs/header_como_organizar_un_evento.jpg">
+  <meta property="og:site_name" content="Ticketapp">
+  <!-- <meta property="og:url" content="ticketapp://Home"> -->
   <meta property="og:image:width" content="600">
   <meta property="og:image:height" content="315">
   <meta property="og:updated_time" content="1440432930" />
 </head>
 <body>
 <script>
+  fetch('https://tickectapp-web-service.onrender.com/api/events')
+    .then(response => response.json())
+    .then(data => {
+      // Obtener los valores de la respuesta
+      const title = data.name;
+      const description = data.description;
+      const image = data.photos.length
+        ? "https://img.freepik.com/vector-premium/ilustracion-vector-grafico-personaje-dibujos-animados-agenda-calendario-eventos-calendario_516790-1280.jpg?w=1380"
+        : data.photos[0];
+
+      // Establecer los valores en los meta tags
+      document.getElementById('metaTitle').content = title;
+      document.getElementById('metaDescription').content = description;
+      document.getElementById('metaImage').content = image;
+
+      // Resto del código...
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del evento:', error);
+    });
+
   function obtenerParametroConsulta(nombre) {
     nombre = nombre.replace(/[\[\]]/g, "\\$&");
     let regex = new RegExp("[?&]" + nombre + "(=([^&#]*)|&|#|$)"),
