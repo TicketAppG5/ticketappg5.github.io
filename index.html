@@ -30,19 +30,20 @@
 
   let eventId = obtenerParametroConsulta('eventId');
 
-  const response = await fetch(`https://tickectapp-web-service.onrender.com/api/events/${eventId}`)
-  const data = await response.json()
-
-  const title = data.name;
-  const description = data.description;
-  const image = data.photos.length
-    ? "https://img.freepik.com/vector-premium/ilustracion-vector-grafico-personaje-dibujos-animados-agenda-calendario-eventos-calendario_516790-1280.jpg?w=1380"
-    : data.photos[0];
-
-  // Establecer los valores en los meta tags
-  document.querySelector('meta[property="og:title"]').setAttribute("content", title);
-  document.querySelector('meta[property="og:description"]').setAttribute("content", description);
-  document.querySelector('meta[property="og:image"]').setAttribute("content", title);
+  fetch(`https://tickectapp-web-service.onrender.com/api/events/${eventId}`)
+    .then(response => response.json())
+    .then(data => {
+      const title = data.name;
+      const description = data.description;
+      const image = data.photos.length
+        ? "https://img.freepik.com/vector-premium/ilustracion-vector-grafico-personaje-dibujos-animados-agenda-calendario-eventos-calendario_516790-1280.jpg?w=1380"
+        : data.photos[0];
+    
+      // Establecer los valores en los meta tags
+      document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+      document.querySelector('meta[property="og:description"]').setAttribute("content", description);
+      document.querySelector('meta[property="og:image"]').setAttribute("content", title);
+    })
 
   function redireccionar() {
     let eventId = obtenerParametroConsulta('eventId');
