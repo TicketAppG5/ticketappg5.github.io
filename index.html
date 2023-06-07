@@ -19,26 +19,19 @@
 </head>
 <body>
 <script>
-  fetch('https://tickectapp-web-service.onrender.com/api/events')
-    .then(response => response.json())
-    .then(data => {
-      // Obtener los valores de la respuesta
-      const title = data.name;
-      const description = data.description;
-      const image = data.photos.length
-        ? "https://img.freepik.com/vector-premium/ilustracion-vector-grafico-personaje-dibujos-animados-agenda-calendario-eventos-calendario_516790-1280.jpg?w=1380"
-        : data.photos[0];
+  const response = await fetch('https://tickectapp-web-service.onrender.com/api/events')
+  const data = await response.json()
 
-      // Establecer los valores en los meta tags
-      document.getElementById('metaTitle').content = title;
-      document.getElementById('metaDescription').content = description;
-      document.getElementById('metaImage').content = image;
+  const title = data.name;
+  const description = data.description;
+  const image = data.photos.length
+    ? "https://img.freepik.com/vector-premium/ilustracion-vector-grafico-personaje-dibujos-animados-agenda-calendario-eventos-calendario_516790-1280.jpg?w=1380"
+    : data.photos[0];
 
-      // Resto del código...
-    })
-    .catch(error => {
-      console.error('Error al obtener los datos del evento:', error);
-    });
+  // Establecer los valores en los meta tags
+  document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+  document.querySelector('meta[property="og:description"]').setAttribute("content", description);
+  document.querySelector('meta[property="og:image"]').setAttribute("content", title);
 
   function obtenerParametroConsulta(nombre) {
     nombre = nombre.replace(/[\[\]]/g, "\\$&");
