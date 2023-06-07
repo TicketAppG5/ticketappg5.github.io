@@ -19,7 +19,18 @@
 </head>
 <body>
 <script>
-  const response = await fetch('https://tickectapp-web-service.onrender.com/api/events')
+  function obtenerParametroConsulta(nombre) {
+    nombre = nombre.replace(/[\[\]]/g, "\\$&");
+    let regex = new RegExp("[?&]" + nombre + "(=([^&#]*)|&|#|$)"),
+        resultados = regex.exec(window.location.href);
+    if (!resultados) return null;
+    if (!resultados[2]) return '';
+    return decodeURIComponent(resultados[2].replace(/\+/g, " "));
+  }
+
+  let eventId = obtenerParametroConsulta('eventId');
+
+  const response = await fetch(`https://tickectapp-web-service.onrender.com/api/events/${eventId}`)
   const data = await response.json()
 
   const title = data.name;
@@ -33,33 +44,18 @@
   document.querySelector('meta[property="og:description"]').setAttribute("content", description);
   document.querySelector('meta[property="og:image"]').setAttribute("content", title);
 
-  function obtenerParametroConsulta(nombre) {
-    nombre = nombre.replace(/[\[\]]/g, "\\$&");
-    let regex = new RegExp("[?&]" + nombre + "(=([^&#]*)|&|#|$)"),
-        resultados = regex.exec(window.location.href);
-    if (!resultados) return null;
-    if (!resultados[2]) return '';
-    return decodeURIComponent(resultados[2].replace(/\+/g, " "));
-  }
-
   function redireccionar() {
     let eventId = obtenerParametroConsulta('eventId');
     // Verificar si la aplicación Ticket App está instalada
     if (navigator.userAgent.match(/Android/i) && window.location.href.indexOf("intent") === -1) {
       if (eventId) {
         window.open(`ticketapp://EventDetail?eventId=${eventId}`);
-        // window.location.replace(`ticketapp://EventDetail?eventId=${eventId}`);
-        // window.location.href = `ticketapp://EventDetail?eventId=${eventId}`;
       } else {
         window.open("ticketapp://Home");
-        // window.location.replace("ticketapp://Home");
-        // window.location.href = "ticketapp://Home";
       }
     } else {
       // Redirigir a la Google Play Store
       window.open("https://play.google.com/store/apps/details?id=com.ticketapp");
-      // window.location.replace("https://play.google.com/store/apps/details?id=com.ticketapp");
-      // window.location.href = "https://play.google.com/store/apps/details?id=com.ticketapp";
     }
   }
   // Llamar a la función de redireccionamiento cuando se cargue la página
