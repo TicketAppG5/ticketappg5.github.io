@@ -16,6 +16,33 @@
   <meta property="og:image:width" content="600">
   <meta property="og:image:height" content="315">
   <meta property="og:updated_time" content="1440432930" />
+  <script>
+  function obtenerParametroConsulta(nombre) {
+    nombre = nombre.replace(/[\[\]]/g, "\\$&");
+    let regex = new RegExp("[?&]" + nombre + "(=([^&#]*)|&|#|$)"),
+        resultados = regex.exec(window.location.href);
+    if (!resultados) return null;
+    if (!resultados[2]) return '';
+    return decodeURIComponent(resultados[2].replace(/\+/g, " "));
+  }
+
+  let eventId = obtenerParametroConsulta('eventId');
+
+  fetch(`https://tickectapp-web-service.onrender.com/api/events/${eventId}`)
+    .then(response => response.json())
+    .then(data => {
+      const title = data.name;
+      const description = data.description;
+      const image = data.photos.length
+        ? data.photos[0].url
+        : "https://img.freepik.com/vector-premium/ilustracion-vector-grafico-personaje-dibujos-animados-agenda-calendario-eventos-calendario_516790-1280.jpg?w=1380";
+    
+      // Establecer los valores en los meta tags
+      document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+      document.querySelector('meta[property="og:description"]').setAttribute("content", description);
+      document.querySelector('meta[property="og:image"]').setAttribute("content", image);
+    })
+</script>
 </head>
 <body>
 <script>
