@@ -113,13 +113,15 @@
     // Verificar si la aplicación Ticket App está instalada
     if (navigator.userAgent.match(/Android/i) && window.location.href.indexOf("intent") === -1) {
       if (eventId) {
-        window.location.href = "intent://EventDetail?eventId=" + eventId + "#Intent;scheme=ticketapp;package=com.ticketapp;end";
+        window.location.replace(`intent://EventDetail?eventId=${eventId}/#Intent;scheme=zxing;package=com.guidobotta.frontmobileapp;S.browser_fallback_url=market://details?id=com.guidobotta.frontmobileapp;end`);
+        // window.location.replace(`ticketapp://EventDetail?eventId=${eventId}`);
       } else {
-        window.location.href = "intent://EventDetail#Intent;scheme=ticketapp;package=com.ticketapp;end";
+        window.location.replace("intent://scan/#Intent;scheme=ticketapp;package=com.google.zxing.client.android;S.browser_fallback_url=market://details?id=com.guidobotta.frontmobileapp;end");
+        // window.location.replace("ticketapp://Home");
       }
     } else {
       // Redirigir a la Google Play Store
-      window.location.href = "https://play.google.com/store/apps/details?id=com.ticketapp";
+      window.location.replace("https://play.google.com/store/apps/details?id=com.ticketapp");
     }
   }
 
